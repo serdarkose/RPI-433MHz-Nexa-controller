@@ -1,6 +1,8 @@
-#include "nexa-controller.h"
-
 #include <iostream>
+
+#include <wiringPi.h>
+
+#include "nexa-controller.h"
 
 constexpr int TURNED_ON_COUNTER = 5;
 constexpr int TURNED_OFF_COUNTER = 3;
@@ -71,9 +73,13 @@ void NexaController::transmit(signalSymbol_t symbol) {
     }
 
 #else
-    digitalWrite(this->transmitPin, symbol.firstPart.signallevel);
+    digitalWrite(this->transmitPin, (int )symbol.firstPart.signallevel);
     delayMicroseconds(this->pulseLength * symbol.firstPart.periodDuration);
-    digitalWrite(this->transmitPin, symbol.secondPart.signallevel);
+    digitalWrite(this->transmitPin, (int) symbol.secondPart.signallevel);
     delayMicroseconds(this->pulseLength * symbol.secondPart.periodDuration);
 #endif
+}
+
+int NexaController::getTransmitPin() const{
+    return transmitPin;
 }

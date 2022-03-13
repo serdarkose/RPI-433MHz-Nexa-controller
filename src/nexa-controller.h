@@ -26,6 +26,7 @@ class NexaController {
 
     void sendTurnOn();
     void sendTurnOff();
+    int getTransmitPin() const; 
 
    private:
     void send(const uint32_t& msg, const int& repeat_cntr);
