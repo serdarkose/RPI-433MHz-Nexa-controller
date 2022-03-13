@@ -55,8 +55,10 @@ void NexaController::sendMsg(const uint32_t& msg) {
     for (int b_i = 0; b_i < 32; ++b_i) {
         if (msg << b_i & MSB_BIT_MASK) {
             transmit(oneSymbol);
+            transmit(zeroSymbol);
         } else {
             transmit(zeroSymbol);
+            transmit(oneSymbol);
         }
     }
     std::cout << std::endl;
