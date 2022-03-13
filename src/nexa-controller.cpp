@@ -1,10 +1,12 @@
 #include <iostream>
 
 #include <wiringPi.h>
+#include <chrono>
+#include <thread>
 
 #include "nexa-controller.h"
 
-constexpr int TURNED_ON_COUNTER = 5;
+constexpr int TURNED_ON_COUNTER = 6;
 constexpr int TURNED_OFF_COUNTER = 3;
 constexpr int TRANSMIT_PIN = 0;
 constexpr int PULSE_LENGTH = 250;  // us
@@ -15,9 +17,9 @@ NexaController::NexaController() : transmitPin{TRANSMIT_PIN}, pulseLength{PULSE_
 NexaController::~NexaController() {}
 
 void NexaController::sendTurnOn() {
-    // turn on msg is sent/repeats 5 times
+    // turn on msg is sent/repeats 6 times
     std::cout << "sending turn on message..\n";
-    const uint32_t msg = 1;
+    const uint32_t msg = 0xAF44EF0;
     send(msg, TURNED_ON_COUNTER);
 }
 
@@ -28,6 +30,8 @@ void NexaController::sendTurnOff() {
     // 0b1010111101000100111011100000 = 0xAF44EE0
     std::cout << "sending turn off message..\n";
     const uint32_t msg = 0xAF44EE0;
+    send(msg, TURNED_OFF_COUNTER);
+    std::this_thread::sleep_for(std::chrono::milliseconds(260));
     send(msg, TURNED_OFF_COUNTER);
 }
 
