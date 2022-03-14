@@ -22,7 +22,7 @@ typedef struct signalSymbol {
 class NexaController {
    public:
     explicit NexaController();
-    ~NexaController();
+    ~NexaController() = default;
 
     void sendTurnOn();
     void sendTurnOff();
@@ -32,15 +32,15 @@ class NexaController {
     void send(const uint32_t& msg, const int& repeat_cntr);
     void sendPacket(const uint32_t& msg);
     void sendMsg(const uint32_t& msg);
-    void transmit(signalSymbol_t symbol);
+    void transmit(signalSymbol_t symbol) const;
 
     const signalSymbol_t startSymbol{{SignalLevel::one, 1}, {SignalLevel::zero, 10}};
     const signalSymbol_t stopSymbol{{SignalLevel::one, 1}, {SignalLevel::zero, 40}};
     const signalSymbol_t oneSymbol{{SignalLevel::one, 1}, {SignalLevel::zero, 5}};
     const signalSymbol_t zeroSymbol{{SignalLevel::one, 1}, {SignalLevel::zero, 1}};
 
-    int transmitPin;
-    int pulseLength;
+    int transmitPin; // GPIO def.
+    int pulseLength;  // in ms
 };
 
 #endif  // SRC_NEXA_CONTROLLER_H_

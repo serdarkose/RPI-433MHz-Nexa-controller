@@ -1,8 +1,8 @@
-#include <string.h>
-#include <wiringPi.h>
-
+#include <cstring>
 #include <iostream>
 #include <string>
+
+#include <wiringPi.h>
 
 #include "nexa-controller.h"
 
@@ -45,8 +45,6 @@ int main(int argc, char *argv[]) {
             std::cout << "Error: undefined action!!\n";
             exit(EXIT_FAILURE);
     }
-
-    std::cout << "success" << std::endl;
 
     return 0;
 }
